@@ -11,7 +11,7 @@ Set up virtual environment and install dependencies from requirements.txt. In te
 * source venv/bin/activate
 * pip install -r requirements.txt
 
-Change the 'path' and 'final_output_path' variables to your input and output paths
+Open the paths.yml file. Change the 'input_path' and 'output_path' variables to your input + output file paths and save.
 
 ## Run the script: 
 In terminal, run the following command:

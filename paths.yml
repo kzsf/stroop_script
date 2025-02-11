@@ -1,0 +1,6 @@
+your_paths:
+  #change 'input_path' to the location of your raw stroop excel data.
+  input_path: /your_input_path/HIVPD23_SMtS_behav.xlsx
+  
+  #change 'output_path' to where you want the processed statistics to go.
+  output_path: /your_output_path/your_filename.csv

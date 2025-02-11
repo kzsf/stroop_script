@@ -1,14 +1,14 @@
-
-
 import pandas as pd
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
+import yaml
 
-#specify path to the excel data
-input_path = '/Users/kjung6/Eva/Stroop/hivpd23/2-10-25_HIVPD23_SMtS_behav.xlsx'
+#read the config file and get input/output paths
+with open('paths.yml', 'r') as file:
+    config = yaml.safe_load(file)
 
-#specify where you want the final output to go
-output_path = '/Users/kjung6/Eva/Stroop/final_dataset/2-11-25_combined_stats.csv'
+input_path = config['your_paths']['input_path']
+output_path = config['your_paths']['output_path']
 
 #read in excel spreadsheet
 sheets = pd.read_excel(input_path, sheet_name=None, header=None)
