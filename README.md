@@ -1,4 +1,5 @@
 # Stroop Script
+Last Updated 2-11-25
 
 ## Setup:
 Clone the Repository 
@@ -10,3 +11,4 @@ Set up virtual environment and install dependencies from requirements.txt
 * venv\Scripts\activate
 * source venv/bin/activate
 * pip install -r requirements.txt
+
