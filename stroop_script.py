@@ -1,16 +1,17 @@
 
+
 import pandas as pd
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
 
 #specify path to the excel data
-path = '/Users/kjung6/Eva/Stroop/hivpd23/2-10-25_HIVPD23_SMtS_behav.xlsx'
+input_path = '/Users/kjung6/Eva/Stroop/hivpd23/2-10-25_HIVPD23_SMtS_behav.xlsx'
 
 #specify where you want the final output to go
-final_output_path = '/Users/kjung6/Eva/Stroop/final_dataset/2-11-25_combined_stats.csv'
+output_path = '/Users/kjung6/Eva/Stroop/final_dataset/2-11-25_combined_stats.csv'
 
 #read in excel spreadsheet
-sheets = pd.read_excel(path, sheet_name=None, header=None)
+sheets = pd.read_excel(input_path, sheet_name=None, header=None)
 
 #define the values we want in column E (index 4)
 valid_values = ['conM', 'conMNM', 'conNM', 'incM', 'incMNM', 'incNM']
@@ -30,9 +31,6 @@ for sheet_name, sheet_data in filtered_sheets.items():
     sheet_data = sheet_data.drop_duplicates()
     #update the filtered_sheets with the cleaned data
     filtered_sheets[sheet_name] = sheet_data
-
-#output path for blocked data 
-output_path = '/Users/kjung6/Eva/Stroop/blocked_data.xlsx'
 
 #define the values we want in column E
 valid_values = ['conM', 'conMNM', 'conNM', 'incM', 'incMNM', 'incNM', 'EventTag']
@@ -496,4 +494,4 @@ conditional_stats = conditional_stats.rename(columns = {'index' : 'Subject_ID'})
 combined_stats = pd.merge(subject_trial_counts, conditional_stats, on = "Subject_ID", how = "left")
 
 #export final combined stats
-combined_stats.to_csv(f'{final_output_path}')
+combined_stats.to_csv(f'{output_path}')
