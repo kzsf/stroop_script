@@ -6,7 +6,7 @@ Last Updated: 2-11-25
 To check to see if python is installed, run the following command in terminal: 
 * python3 --version  
 
-Install git from the  [official git webpage](https://git-scm.com/).
+    Install git from the  [official git webpage](https://git-scm.com/).
 
 2. Clone the Repository and change directories into the repository.  
     In terminal, run the following commands (one at a time): 
