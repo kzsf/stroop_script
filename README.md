@@ -8,7 +8,7 @@ Last Updated: 2-11-25
 
     * python3 --version  
 
-    Install git from the  [official git webpage](https://git-scm.com/).
+    Install git from the  [official git webpage](https://git-scm.com/downloads/mac).
 
 2. Clone the Repository and change directories into the repository.  
 
@@ -34,5 +34,5 @@ Last Updated: 2-11-25
     Save the file.
 
 ## Run the script: 
-In terminal, run the following command:
+In terminal, run the following commands:  
 * python3 stroop_script.py
