@@ -34,3 +34,4 @@ traitlets==5.14.3
 tzdata==2024.2
 wcwidth==0.2.13
 XlsxWriter==3.2.0
+pyyaml==6.0.2
