@@ -1,5 +1,5 @@
 # Stroop Script
-Last Updated: 2-12-25
+Last Updated: 2-28-25
 
 ## Setup:
 1. Install dependencies if necessary.  
