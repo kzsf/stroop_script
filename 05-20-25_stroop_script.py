@@ -23,7 +23,7 @@ for sheet_name, sheet_data in sheets.items():
     #filter the sheet based on the values in column E (index 4)
     filtered_data = sheet_data[sheet_data.iloc[:, 4].isin(valid_values)]
     filtered_data = filtered_data.iloc[:, :8]
-    filtered_data.columns = ['Trial', 'RunLabel', 'Condition', 'trial start', 'EventTag', 'Time', 'keys', 'match_status']
+    filtered_data.columns = ['Trial', 'RunLabel', 'Condition', 'TrialStart', 'EventTag', 'Time', 'keys', 'match_status']
     filtered_sheets[sheet_name] = filtered_data
 
 for sheet_name, sheet_data in filtered_sheets.items():
@@ -48,6 +48,12 @@ for sheet_name, sheet_data in sheets.items():
 
 #set colnames, subset first 15 rows and delete dupes
 for sheet_name, sheet_data in filtered_sheets_2.items():
+
+    #check to see if the sheet is empty after previous filtering
+    if len(sheet_data) == 0:
+        print(f"Warning: Sheet '{sheet_name}' is empty. Skipping.")
+        continue  #skip to next sheet
+    
     sheet_data.columns = sheet_data.iloc[0]
     sheet_data = sheet_data.drop(index=0).reset_index(drop=True)
     
@@ -80,8 +86,31 @@ def split_dataframe_by_header(sheet_data):
 #test_subj = filtered_sheets_2['HP23-01696']
 
 #function to remove any extra characters in 'keys' column (such as _5UP)
+#def clean_keys_column(sheet_data):
+    #remove rows where there are extra characters (other than 5_up) because they are invalid. 
+    
+    #keeps only the text between the first [] for remaining, which should be only _5UP 
+#    sheet_data['keys'] = sheet_data['keys'].str.replace(r'\[([0-9]+)\].*', r'[\1]', regex=True)
+#    return sheet_data
+
 def clean_keys_column(sheet_data):
-    sheet_data['keys'] = sheet_data['keys'].str.replace(r'\[([0-9]+)\].*', r'[\1]', regex=True)
+    
+    #debug prints
+    print("Columns in sheet_data:", sheet_data.columns.tolist())  
+    print("First few rows:\n", sheet_data.head())  
+    """
+    Cleans 'keys' column by:
+    - Extracting the first [int] if the row matches:
+        - Single [int] (e.g., [1]), OR
+        - Multiple [int]s ending with _UP (e.g., [1][5]_UP).
+    - Leaves other rows unchanged (e.g., "abc", "[1]xyz").
+    """
+    # Pattern to match valid cases (single [int] or [int]..._UP)
+    valid_pattern = r'^(\[\d+\])(?:$|(\[\d+\])*_UP$)'
+    
+    # Extract first [int] ONLY for valid rows
+    sheet_data['keys'] = sheet_data['keys'].str.extract(r'^(\[\d+\])', expand=False).fillna("")
+    
     return sheet_data
 
 #function to find the most common value in 'keys' for specific EventTag section
@@ -89,6 +118,7 @@ def most_common_key_in_section(block, event_tag):
     section_keys = block[block['EventTag'] == event_tag]['keys']
     mode_result = section_keys.mode()
     return mode_result[0] if not mode_result.empty else None
+
 
 
 def map_condition(condition_value, match_key='[1]', nonmatch_key='[2]'):
